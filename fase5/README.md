@@ -80,7 +80,7 @@ Os resultados devem ser interpretados considerando o tamanho reduzido do conjunt
 
 ### Vídeo demonstrativo
 
-[Vídeo da Entrega 1 — adicionar link do YouTube não listado]
+[Vídeo da Entrega 1 — Machine Learning](https://youtu.be/qyWgyC9aXxg)
 
 ## Entrega 2 — Cloud Computing com AWS
 
@@ -147,4 +147,4 @@ N. da Virgínia:
 
 ### Vídeo demonstrativo
 
-[Vídeo da Entrega 2 — adicionar link do YouTube não listado]
+[Vídeo da Entrega 2 — Cloud Computing com AWS](https://youtu.be/UKYKhwVzVz4)
