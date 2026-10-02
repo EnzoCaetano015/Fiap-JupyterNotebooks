@@ -1,0 +1,34 @@
+{
+  "images": 80,
+  "classes": {
+    "bottle": 40,
+    "backpack": 40
+  },
+  "splits": {
+    "train": {
+      "bottle": 32,
+      "backpack": 32
+    },
+    "val": {
+      "bottle": 4,
+      "backpack": 4
+    },
+    "test": {
+      "bottle": 4,
+      "backpack": 4
+    }
+  },
+  "labels": 80,
+  "bounding_boxes": 91,
+  "unique_authors": 79,
+  "seed": 42,
+  "source_dataset": "Open Images",
+  "source_split_counts": {
+    "test": 75,
+    "validation": 5
+  },
+  "collected_on": "2026-10-02",
+  "annotation_method": "Existing source bounding boxes converted to YOLO; no model-generated labels",
+  "images_ignored_by_git": true,
+  "labels_ignored_by_git": true
+}
