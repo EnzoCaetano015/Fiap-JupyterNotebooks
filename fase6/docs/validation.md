@@ -32,7 +32,8 @@ IDs resolvidos por nome: Bottle `/m/04dr76w` e Backpack `/m/01940j`.
 Imagens com ambas as classes anotadas, grupos, desenhos e anotações inside
 foram excluídas. A inspeção visual descartou latas, potes, malas, bolsas de
 ombro e enquadramentos inadequados presentes entre os candidatos da fonte.
-Foram preservadas as caixas existentes para os objetos selecionados.
+As caixas existentes foram usadas na coleta inicial; a revisão posterior
+no Make Sense está registrada em makesense_validation.md.
 
 As 80 fotos selecionadas são de 79 autores. São 75 imagens originalmente
 do split test e 5 do validation do Open Images. Os splits locais 32/4/4 foram
@@ -50,8 +51,9 @@ consulte as URLs originais caso vá redistribuir as fotos publicamente.
 As fotos foram copiadas dos JPEGs do bucket oficial, sem recorte ou edição
 de pixels na coleta. As caixas foram convertidas de xyxy normalizado para
 centro/largura/altura YOLO com IDs locais 0/1; não são predições de modelo.
-Não houve rotulação manual no Make Sense. Caso essa ferramenta seja exigida
-pela atividade, revise os labels nela e registre as evidências requeridas.
+Na coleta inicial não foi usado Make Sense. Em 02/10/2026, Codex importou,
+revisou visualmente e corrigiu os labels no site, com exportações YOLO reais
+e capturas de tela. Veja [validação da revisão](makesense_validation.md).
 
 ## Verificação real executada
 
@@ -82,3 +84,32 @@ e atribuição são versionáveis. Nenhum commit ou push foi executado.
 
 Commit sugerido para esta etapa:
 `feat(fase6): integra dataset de garrafas e mochilas com labels e proveniência`
+
+## Revisão posterior no Make Sense
+
+As 80 imagens foram revisadas no editor em 02/10/2026, com exportações YOLO
+reais, 13 imagens corrigidas e preservação das 91 caixas totais e dos splits.
+O pacote atualizado é `dataset_fase6_final.zip`; o pacote da coleta descrito
+acima é histórico. `sources.csv` mantém a quantidade de caixas originais em
+`source_bounding_boxes` e a contagem atual em `bounding_boxes`.
+Veja [registro completo](makesense_validation.md).
+
+## Preparação posterior para as tasks 11–22
+
+Em 02/10/2026, o notebook passou a ter 50 células, 26 de código. As células
+foram executadas localmente com todas as ações externas e acadêmicas desligadas.
+Fixtures temporárias e mocks verificaram a extração protegida, SHA-256/CRC,
+rejeição de sobrescrita e caminhos inseguros, diagnóstico de imagens ilegíveis,
+labels inválidos, dataset vazio, manifesto, comandos 30/60 equivalentes,
+seleção em val com desempate por tempo, campos indisponíveis, tempos e filtros.
+O pipeline de inferência produziu oito evidências com mock em pasta temporária,
+e a recuperação desses arquivos foi verificada. Esses dados não são resultados
+acadêmicos e não foram incorporados em results.
+
+A CNN real foi construída/compilada em CPU, com model.summary e inferência
+sintética de saída (2,2). O notebook entregue continua sem outputs acadêmicos.
+A GPU Colab e a execução conjunta dos frameworks só poderão ser confirmadas
+pelo usuário no preflight. Treinos e análises finais continuam pendentes.
+Confira tasks_progress.md e final_checklist.md para o estado por task.
+
+Verificação final: adaptadores oficiais compilados e exercitados com mocks; callback `on_model_save` conferido em melhoria/empate e seleção da linha correspondente do CSV; `ComputeLoss` e avaliação de oito imagens conferidos. Diff restrito a fase6, `git diff --check` sem erros e regras de ignore verificadas. Os adaptadores ainda precisam de execução real no Colab.

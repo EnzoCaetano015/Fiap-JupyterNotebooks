@@ -18,3 +18,5 @@ data/val/images/*
 data/val/labels/*
 data/test/images/*
 data/test/labels/*
+.artifacts/
+*.zip

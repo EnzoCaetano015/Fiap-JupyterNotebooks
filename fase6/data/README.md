@@ -15,9 +15,18 @@ ombro inadequadas foram descartadas. Fotos não foram geradas por IA.
 Cada split contém `images/` com JPEGs e `labels/` com o TXT do mesmo stem.
 São 80 labels, contendo 91 caixas delimitadoras. Os labels foram convertidos
 das anotações existentes do Open Images para `class_id x_center y_center width height`,
-com coordenadas normalizadas; não são predições de um modelo. Não foi utilizada
-rotulação manual no Make Sense. Se essa ferramenta for exigida na atividade,
-importe/revise os labels nela e registre as evidências exigidas.
+com coordenadas normalizadas. Em 02/10/2026, as 80 imagens e seus labels foram
+importados no Make Sense, revisados visualmente por Codex via navegador e
+exportados pelo próprio site. Foram ajustadas 13 imagens, incluindo uma
+mochila ausente e a remoção de uma mala indevidamente marcada como mochila.
+Não são predições de um detector nem uma revisão humana independente pelo aluno.
+Veja [procedimento](../docs/makesense.md) e [validação](../docs/makesense_validation.md).
+
+Os labels seguem a classe de foco original de cada imagem para manter o
+contrato de classificação da CNN. Objetos incidentais da outra classe não
+são anotados exaustivamente; isso limita a avaliação de detecção. Há também
+uma foto de representação impressa de garrafa e uma candidata a mochila com
+rodinhas. Essas limitações devem ser consideradas na análise acadêmica.
 
 O manifesto da CNN usa os labels, não os nomes dos arquivos. Cada imagem tem
 somente uma das duas classes de interesse; múltiplos objetos da mesma classe

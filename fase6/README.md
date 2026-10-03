@@ -9,8 +9,11 @@ YOLOv5 customizada, YOLOv5 padrão pré-treinada em COCO e uma CNN própria trei
 do zero, nas classes `bottle` (0) e `backpack` (1).
 
 O [notebook principal](notebook/EnzoCaetanoPeracioRodrigues_rm570352_pbl_fase6.ipynb)
-contém todo o código Python da entrega e é o roteiro de execução. Link direto Colab: será adicionado
-após publicação desta versão no GitHub. Abra o notebook pelo GitHub no Colab.
+contém todo o código Python da entrega e é o roteiro de execução. A preparação atual pode ser aberta por upload no Colab, usando o pacote de
+apoio enquanto as mudanças não forem publicadas. Após publicação, use o
+[link Colab](https://colab.research.google.com/github/EnzoCaetano015/Fiap-JupyterNotebooks/blob/main/fase6/notebook/EnzoCaetanoPeracioRodrigues_rm570352_pbl_fase6.ipynb).
+Esse link aponta para main e só representará esta preparação após seu commit/push;
+a execução publicada ainda não foi validada.
 
 ## Estrutura
 
@@ -27,34 +30,26 @@ fase6/
 
 ## Como executar
 
-1. Abra o notebook no Google Colab. Na preparação, habilite `CLONE_REPOSITORY`
-   se necessário e `INSTALL_DEPENDENCIES` na primeira execução. O clone pressupõe
-   que esta implementação já foi publicada no repositório.
-2. Use Python 3.11 ou 3.12 com as dependências de `requirements.txt`. Se uma
-   instalação alterar bibliotecas carregadas, reinicie a sessão e reexecute
-   as células. Para validar localmente, use uma venv separada da usada por outras fases.
-3. Execute configuração e inspeção. Com o dataset local, o estado esperado é
-   `ready`. Sem os arquivos de fotos, a saída é `Dataset ainda não integrado`.
-   A CNN pode ser construída e validada com
-   um tensor sintético, sem treinar ou produzir resultado acadêmico.
-4. As imagens e labels já estão integrados localmente. Para Colab, transfira o
-   pacote do dataset ao Drive e extraia a pasta `data/`; esses arquivos estão
-   ignorados pelo Git e não acompanham o clone. Habilite `MOUNT_DRIVE`
-   e ajuste `DRIVE_DATASET`, ou use a variável de ambiente `FASE6_DATASET`.
-   A pasta deve conter `train`, `val` e `test`, cada uma com `images` e `labels`.
-5. Somente após a validação, habilite `RUN_EXPERIMENTS`. O preparo explícito
-   da YOLO clona o runtime oficial `v7.0` em `.runtime/yolov5` e instala suas
-   dependências, com PyTorch 2.5.1, torchvision 0.20.1 e setuptools abaixo de 81.
-   Os mosaicos internos antigos do YOLO ficam desativados para compatibilidade
-   com Pillow moderno; gráficos e bounding boxes são gerados pelas funções do notebook. O modelo COCO
-   baixa pesos oficiais na primeira carga, quando a execução é habilitada.
-6. Execute 30/60 épocas com pesos aleatórios, mantendo os outros parâmetros.
-   Escolha pela validação (mAP50_95, mAP50, menor duração em épocas para desempate)
-   e só depois execute o teste do selecionado. Execute COCO e CNN no mesmo teste.
-7. Gere tabelas, gráficos, evidências e conclusões usando apenas resultados reais.
-   Treinos existentes não são sobrescritos: use outro diretório de saída ou
-   arquive conscientemente o experimento anterior. Para a CNN, preserve os
-   resultados anteriores antes de remover localmente seu diretório `runs/cnn`.
+1. Abra o notebook preparado por upload no Colab e selecione GPU. Se esta
+   versão não está publicada, envie o pacote de apoio para /content e use
+   USE_SUPPORT_ZIP; caso contrário, use CLONE_REPOSITORY.
+2. Envie manualmente dataset_fase6_final.zip para MyDrive/Fiap/Fase6/.
+   Monte o Drive e habilite a extração explicitamente. O ZIP e cada membro
+   são conferidos pelo manifesto; a pasta existente não será sobrescrita.
+3. Confira o diagnóstico ready, as contagens 64/8/8 e o fingerprint. Prepare
+   o runtime e execute o preflight mantendo RUN_EXPERIMENTS=False. Se a
+   instalação pedir reinício, reinicie e reexecute com instalação desativada.
+4. Confira a GPU nos dois frameworks e environment.json. Só então habilite
+   START_FINAL_EXPERIMENTS na célula anterior ao treino de 30 épocas.
+5. Execute YOLO do zero 30/60, seleção em val, teste do selecionado, COCO e CNN.
+   Runs e checkpoints ficam no Drive em experiments/SESSION_NAME; resultados
+   pequenos são preservados após cada etapa. Nenhum run existente é sobrescrito.
+6. Exporte o ZIP de resultados e baixe o notebook executado pelo menu do Colab.
+   Devolva os dois arquivos para revisão e consolidação final.
+
+Leia o [roteiro detalhado](docs/colab_execution.md), incluindo os controles,
+recuperação após desconexão e preservação dos artefatos. A Task 11 está
+**pronta para upload**; upload e treinamentos serão realizados pelo usuário.
 
 Para execução local, instale as dependências em uma venv isolada:
 
@@ -76,8 +71,10 @@ dependências globalmente.
 
 O dataset local tem **80 fotos do Open Images**, 40 de cada classe,
 com **32/4/4 por classe** para treino/validação/teste. As fotos passaram por
-inspeção visual e têm 80 labels YOLO (91 caixas) convertidos das anotações
-da fonte. Não houve rotulação manual no Make Sense nem geração por modelo.
+inspeção visual e têm 80 labels YOLO (91 caixas). As anotações da fonte foram
+importadas no Make Sense, revisadas visualmente e corrigidas por Codex via
+navegador, e exportadas em YOLO. A revisão alterou 13 imagens; não houve
+geração de labels por modelo de detecção. Veja o [registro da revisão](docs/makesense_validation.md).
 Veja o [contrato e a proveniência](data/README.md) e a
 [tabela de origem e atribuição](data/sources.csv).
 
@@ -125,9 +122,11 @@ Link: será adicionado após a conclusão dos experimentos.
 
 ## Limitações atuais
 
-Dataset integrado localmente; treinamentos e inferências acadêmicas ainda não executados;
+Dataset integrado localmente e revisado no Make Sense; treinamentos e inferências acadêmicas ainda não executados;
 métricas finais, prints, vídeo e conclusões indisponíveis. A execução completa
 em Colab/GPU ainda precisa de validação com os dados reais. Não implementamos
 ESP32-CAM, Transfer Learning, Fine Tuning ou segmentação.
 
-Veja [arquitetura](docs/architecture.md) e [validação técnica](docs/validation.md).
+Veja [arquitetura](docs/architecture.md), [validação técnica](docs/validation.md),
+[progresso das tasks](docs/tasks_progress.md), [checklist final](docs/final_checklist.md)
+e [roteiro do vídeo](docs/video_script.md).
