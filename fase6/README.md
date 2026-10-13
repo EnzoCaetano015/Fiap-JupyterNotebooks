@@ -1,132 +1,82 @@
-# FarmTech Solutions — Fase 6
-
-## Visão Computacional
+# FarmTech Solutions — Fase 6: Visão Computacional
 
 **Enzo Caetano Peracio Rodrigues — RM 570352** · Projeto individual
 
-A FarmTech explora visão computacional. Esta fase compara
-YOLOv5 customizada, YOLOv5 padrão pré-treinada em COCO e uma CNN própria treinada
-do zero, nas classes `bottle` (0) e `backpack` (1).
+Experimentos reais concluídos no Colab em **13/10/2026**, Tesla T4. Todo o código
+Python está no [notebook obrigatório](notebook/EnzoCaetanoPeracioRodrigues_rm570352_pbl_fase6.ipynb), com outputs preservados
+e controles externos desativados após a execução. Sem src, tests ou arquivos .py.
+Abra a [cópia executada no Colab](https://colab.research.google.com/drive/1tOPqLqF--WRhIR8VweO8-4SQi4PKFW-j) no Drive conectado. A versão pública
+no GitHub depende do commit/push do aluno; nenhum foi feito automaticamente.
 
-O [notebook principal](notebook/EnzoCaetanoPeracioRodrigues_rm570352_pbl_fase6.ipynb)
-contém todo o código Python da entrega e é o roteiro de execução. A preparação atual pode ser aberta por upload no Colab, usando o pacote de
-apoio enquanto as mudanças não forem publicadas. Após publicação, use o
-[link Colab](https://colab.research.google.com/github/EnzoCaetano015/Fiap-JupyterNotebooks/blob/main/fase6/notebook/EnzoCaetanoPeracioRodrigues_rm570352_pbl_fase6.ipynb).
-Esse link aponta para main e só representará esta preparação após seu commit/push;
-a execução publicada ainda não foi validada.
+## Dataset e métodos
 
-## Estrutura
+80 fotos Open Images: bottle (0) e backpack (1), 40 por classe, distribuição
+32/4/4 por classe (64/8/8 no total), 80 labels e 91 caixas. Labels importados,
+revisados e corrigidos por Codex no Make Sense, exportados em YOLO. Preservamos
+essa autoria: veja [revisão](docs/makesense_validation.md),
+[contrato](data/README.md) e [atribuições](data/sources.csv).
+Fotos e labels brutos continuam ignorados pelo Git; pacote conferido no Drive.
 
-```text
-fase6/
-├── config/       # contrato YOLO e parâmetros dos experimentos
-├── data/         # 80 fotos locais, labels YOLO e metadados de origem
-├── docs/         # arquitetura e relatório de validação técnica
-├── notebook/     # entrega acadêmica principal
-├── results/      # pequenos resultados reais, quando disponíveis
-├── requirements.txt
-└── .gitignore
-```
+YOLOv5s oficial v7.0 do zero: 30/60 épocas, 640, batch 16, seed 42, patience 0.
+CNN própria: três blocos, 224×224, batch 8, 30 épocas, augmentation só no treino,
+checkpoint pela menor val_loss. COCO usa yolov5s pré-treinada sem treino nesta base.
+Selecionamos a YOLO de 60 épocas exclusivamente em validação (melhor época 59).
+As três abordagens usaram as mesmas oito imagens de teste.
 
-## Como executar
+## Resultados de teste
 
-1. Abra o notebook preparado por upload no Colab e selecione GPU. Se esta
-   versão não está publicada, envie o pacote de apoio para /content e use
-   USE_SUPPORT_ZIP; caso contrário, use CLONE_REPOSITORY.
-2. Envie manualmente dataset_fase6_final.zip para MyDrive/Fiap/Fase6/.
-   Monte o Drive e habilite a extração explicitamente. O ZIP e cada membro
-   são conferidos pelo manifesto; a pasta existente não será sobrescrita.
-3. Confira o diagnóstico ready, as contagens 64/8/8 e o fingerprint. Prepare
-   o runtime e execute o preflight mantendo RUN_EXPERIMENTS=False. Se a
-   instalação pedir reinício, reinicie e reexecute com instalação desativada.
-4. Confira a GPU nos dois frameworks e environment.json. Só então habilite
-   START_FINAL_EXPERIMENTS na célula anterior ao treino de 30 épocas.
-5. Execute YOLO do zero 30/60, seleção em val, teste do selecionado, COCO e CNN.
-   Runs e checkpoints ficam no Drive em experiments/SESSION_NAME; resultados
-   pequenos são preservados após cada etapa. Nenhum run existente é sobrescrito.
-6. Exporte o ZIP de resultados e baixe o notebook executado pelo menu do Colab.
-   Devolva os dois arquivos para revisão e consolidação final.
+| Abordagem | Tarefa e métrica | Resultado | Média / mediana (ms/imagem) |
+|---|---|---:|---:|
+| YOLO customizada | Detecção, mAP@0.5:0.95 | 0,005039 | 34,22 / 35,99 |
+| YOLO COCO | Detecção, mAP não calculado | Indisponível | 20,97 / 20,22 |
+| CNN própria | Classificação, accuracy | 0,875 (7/8) | 16,99 / 16,30 |
 
-Leia o [roteiro detalhado](docs/colab_execution.md), incluindo os controles,
-recuperação após desconexão e preservação dos artefatos. A Task 11 está
-**pronta para upload**; upload e treinamentos serão realizados pelo usuário.
+CNN: F1 macro 0,873016; matriz `[[4,0],[1,3]]`. YOLO própria teve nenhuma
+detecção com confiança mínima 0,25; COCO detectou garrafas, mas nenhuma mochila.
+Essa limitação pertence aos baselines originais. A melhoria complementar abaixo demonstrou ambas as classes.
+**Accuracy e mAP medem tarefas diferentes. Confiança não é precisão.**
+O teste pequeno e as diferentes entradas limitam conclusões e comparação de tempos.
+Veja [análise completa](docs/results_analysis.md), curvas, tabelas e evidências
+reais em results; pesos/runs permanecem no Drive, fora do Git.
 
-Para execução local, instale as dependências em uma venv isolada:
+## Execução e entrega
 
-```bash
-python -m pip install -r fase6/requirements.txt
-```
+A pasta utilizada é `/content/drive/MyDrive/Faculdade/Fiap/Fase6`.
+Upload, extração, diagnóstico, GPU dos dois frameworks e experimentos foram
+conferidos. Leia o [roteiro de execução/recuperação](docs/colab_execution.md)
+antes de habilitar ações; não sobrescreva a sessão existente.
+A preparação local foi validada em Python 3.11 isolado, incluindo smoke test
+real de CNN em CPU. A execução GPU usou Python 3.12.13 no runtime 2026.07.
 
-Abra o notebook em um ambiente Jupyter e execute as células na ordem apresentada.
-As funções são definidas dentro do notebook, sem imports de código local ou
-ajustes de `sys.path`. Configurações YAML, documentação e diretórios de dados
-continuam como arquivos de apoio. Não há arquivos Python separados nem pasta
-de testes na entrega. O smoke test técnico da CNN permanece no notebook.
+Estrutura: config (YAML/manifesto), data (contrato/proveniência e dados locais
+ignorados), notebook (código e outputs), results (artefatos pequenos reais),
+docs (arquitetura, verificações, análise e vídeo). Dependências em requirements.txt.
+Não instalar globalmente nem versionar ZIPs, pesos, ambientes ou runs.
 
-TensorFlow/PyTorch são importados nas funções que precisam desses frameworks.
-Definir funções não inicia treinamento nem baixa pesos. Não instale as
-dependências globalmente.
+## Pendências de aceite
 
-## Dataset
+Vídeo de até cinco minutos: **gravação, publicação não listada e URL pendentes**.
+O [roteiro com os números reais](docs/video_script.md) está pronto.
+As predições originais não demonstraram mochilas; o experimento complementar
+com pesos COCO demonstra detecções corretas das duas classes, preservando o histórico.
+Publicação da versão no GitHub/commit/push fica com o aluno.
+Não implementamos ESP32-CAM ou segmentação. Fine tuning foi usado no experimento complementar autorizado.
 
-O dataset local tem **80 fotos do Open Images**, 40 de cada classe,
-com **32/4/4 por classe** para treino/validação/teste. As fotos passaram por
-inspeção visual e têm 80 labels YOLO (91 caixas). As anotações da fonte foram
-importadas no Make Sense, revisadas visualmente e corrigidas por Codex via
-navegador, e exportadas em YOLO. A revisão alterou 13 imagens; não houve
-geração de labels por modelo de detecção. Veja o [registro da revisão](docs/makesense_validation.md).
-Veja o [contrato e a proveniência](data/README.md) e a
-[tabela de origem e atribuição](data/sources.csv).
+Veja [arquitetura](docs/architecture.md), [validação](docs/validation.md),
+[progresso por task](docs/tasks_progress.md) e [auditoria](docs/final_checklist.md).
 
-O manifesto de classificação vem dos labels e aceita somente uma classe de
-interesse por imagem. Fotos e labels estão no projeto, mas continuam ignorados
-pelo Git. Para usar no Colab, transfira o dataset ao Drive.
 
-## Abordagens e métricas
+## Melhoria complementar concluída
 
-- **YOLO customizada:** arquitetura yolov5s, pesos aleatórios, 30/60 épocas,
-  imagem 640, batch 16, seed 42, parada antecipada desativada.
-- **YOLO padrão:** yolov5s COCO, classes resolvidas pelos nomes, sem treino na base.
-- **CNN:** três blocos convolucionais, saída softmax com duas classes, loss sparse
-  categorical crossentropy, 224 × 224, batch 8, 30 épocas e augmentation apenas no treino.
+Fine tuning COCO 30/60 executado na T4, com os mesmos dados. Seleção por
+validação: **60 épocas**, checkpoint **58**.
+Teste observado: **mAP50 0.9950; mAP50:95 0.7597**.
+Detecções corretas por IoU >=0,5/confiança >=0,25 demonstradas para **bottle e backpack**.
+Os resultados fracos do treino do zero permanecem preservados; este ganho vem
+de um experimento complementar com pesos COCO, explicitamente autorizado.
+Veja [análise e contagens por classe](docs/model_improvement.md) e a seção 15
+do notebook. Não é novo teste cego. Vídeo/publicação seguem pendentes.
 
-YOLO realiza detecção; CNN realiza classificação. **mAP e accuracy não são
-grandezas equivalentes.** Precision/recall da detecção também não equivalem
-automaticamente aos valores macro da classificação. Tempos e facilidade de uso
-podem ser comparados com hardware, tamanhos de entrada e escopo de medição registrados.
-
-O cronômetro usa `perf_counter`, exclui carga de modelo, leitura de arquivos,
-warm-up e salvamento. Inclui pré-processamento e execução (NMS na YOLO).
-Calcula média e mediana por imagem, e desvio padrão amostral com duas ou mais
-imagens. A GPU YOLO é sincronizada e a saída TensorFlow é materializada.
-
-## Resultados — pendentes
-
-| Abordagem | Métrica principal | Resultado | Tempo |
-|---|---|---|---|
-| YOLO customizada | mAP@0.5:0.95 | Pendente | Pendente |
-| YOLO padrão COCO | mAP indisponível neste pipeline de inferência | Pendente | Pendente |
-| CNN do zero | Accuracy e F1 macro | Pendente | Pendente |
-
-As tabelas de detecção COCO e seus tempos estarão disponíveis após a inferência.
-Confiança de predição não será apresentada como mAP. O pipeline padrão não
-calcula mAP com labels customizados 0/1: esse cálculo exigiria remapeamento dos
-IDs para COCO. O benchmark preserva esse campo como indisponível.
-
-`results/` permanece vazio enquanto os experimentos não forem executados. Não há métricas nem gráficos
-acadêmicos fabricados. As validações técnicas não geram resultados acadêmicos.
-
-## Vídeo demonstrativo
-
-Link: será adicionado após a conclusão dos experimentos.
-
-## Limitações atuais
-
-Dataset integrado localmente e revisado no Make Sense; treinamentos e inferências acadêmicas ainda não executados;
-métricas finais, prints, vídeo e conclusões indisponíveis. A execução completa
-em Colab/GPU ainda precisa de validação com os dados reais. Não implementamos
-ESP32-CAM, Transfer Learning, Fine Tuning ou segmentação.
-
-Veja [arquitetura](docs/architecture.md), [validação técnica](docs/validation.md),
-[progresso das tasks](docs/tasks_progress.md), [checklist final](docs/final_checklist.md)
-e [roteiro do vídeo](docs/video_script.md).
+Limitações complementares: uma mochila sem detecção a 0,25 e um copo marcado
+como garrafa. O objetivo mínimo de distinguir/localizar as duas classes foi
+comprovado neste conjunto, sem afirmar funcionamento perfeito em qualquer imagem.

@@ -50,6 +50,24 @@ campos indisponíveis e métricas próprias de cada tarefa.
 O teste customizado usa val.run oficial com o modelo não fundido, dataloader
 do split reservado e ComputeLoss, em FP32. As losses são efetivamente calculadas;
 zeros de inicialização de uma avaliação sem ComputeLoss não são tratados
-como métricas. A execução real desse adaptador em GPU permanece pendente.
+como métricas. A execução real desse adaptador foi comprovada na Tesla T4 em 13/10/2026.
 
 A melhor época é registrada pelo callback oficial `on_model_save` quando o YOLOv5 grava `best.pt`, evitando inferir empates a partir do CSV arredondado. O treino usa `train.main` e os mesmos argumentos oficiais, sem alterar a implementação do YOLOv5. Referências: [treinamento v7.0](https://github.com/ultralytics/yolov5/blob/v7.0/train.py) e [callbacks v7.0](https://github.com/ultralytics/yolov5/blob/v7.0/utils/callbacks.py).
+
+## Execução consolidada
+
+Runtime 2026.07/Python 3.12.13: Torch usa cuDNN 9; TensorFlow 2.17 usa
+cuDNN 8 local em .runtime. Preflight comprova os dois frameworks antes de treino.
+O treino persiste execution.json antes da coleta; uma falha de análise não exige
+repetir treino. Raw opts e callbacks em results/audit dão rastreabilidade.
+Outputs reais foram preservados; controles externos False após consolidação.
+Revisão qualitativa adicional roda localmente sobre resultados verificados,
+sem executar novamente os modelos. Nenhum código Python fora do notebook.
+
+
+Checkpoint para uso do modelo melhorado:
+`/content/drive/MyDrive/Faculdade/Fiap/Fase6/experiments/fase6_transfer_001/runs/transfer_60_epochs/weights/best.pt`.
+Use load_improved_yolo e as funções de inferência da seção 15. Pesos não são versionados.
+O benchmark ampliado está em results/yolo_improved/comparison/benchmark_with_improvement.csv:
+os três resultados originais mais o detector complementar, sem substituir o histórico.
+Medições em sessões T4 distintas, entradas e tarefas diferentes; não são ranking universal.

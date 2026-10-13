@@ -17,7 +17,7 @@ do usuário, que amplia o escopo anterior de preparação sem dataset.
 - Contact sheets das 40 fotos de cada classe disponíveis junto ao pacote.
 
 Não há arquivos Python separados, pasta src ou pasta tests na entrega.
-Resultados de modelos continuam pendentes; results permanece vazio.
+Este registro descreve a coleta em 02/10/2026. Resultados posteriores reais foram consolidados em 13/10/2026; veja a atualização abaixo.
 
 ## Fonte e seleção
 
@@ -55,7 +55,7 @@ Na coleta inicial não foi usado Make Sense. Em 02/10/2026, Codex importou,
 revisou visualmente e corrigiu os labels no site, com exportações YOLO reais
 e capturas de tela. Veja [validação da revisão](makesense_validation.md).
 
-## Verificação real executada
+## Verificação executada na coleta — histórico de 02/10/2026
 
 - Schema Jupyter validado; outputs continuam vazios no notebook entregue.
 - As 22 células de código executaram em sequência com RUN_EXPERIMENTS=False:
@@ -71,7 +71,7 @@ e capturas de tela. Veja [validação da revisão](makesense_validation.md).
 - git diff confirmou README raiz e fases 3, 4 e 5 sem alterações.
 - Nenhum peso ou resultado acadêmico fictício adicionado.
 
-## Próximos passos
+## Próximos passos registrados na coleta (histórico)
 
 Para o ambiente local, o dataset já está integrado. Para Colab, transfira o ZIP
 ao Drive, extraia data/ e configure o caminho no notebook. Depois execute os
@@ -94,7 +94,7 @@ acima é histórico. `sources.csv` mantém a quantidade de caixas originais em
 `source_bounding_boxes` e a contagem atual em `bounding_boxes`.
 Veja [registro completo](makesense_validation.md).
 
-## Preparação posterior para as tasks 11–22
+## Preparação para as tasks 11–22 — histórico de 02/10/2026
 
 Em 02/10/2026, o notebook passou a ter 50 células, 26 de código. As células
 foram executadas localmente com todas as ações externas e acadêmicas desligadas.
@@ -113,3 +113,33 @@ pelo usuário no preflight. Treinos e análises finais continuam pendentes.
 Confira tasks_progress.md e final_checklist.md para o estado por task.
 
 Verificação final: adaptadores oficiais compilados e exercitados com mocks; callback `on_model_save` conferido em melhoria/empate e seleção da linha correspondente do CSV; `ComputeLoss` e avaliação de oito imagens conferidos. Diff restrito a fase6, `git diff --check` sem erros e regras de ignore verificadas. Os adaptadores ainda precisam de execução real no Colab.
+
+## Atualização — execução real de 13/10/2026
+
+- 27 células da preparação e, após consolidação, as 30 células finais executadas
+  localmente com ações externas False;
+  casos temporários/mocks de ZIP, labels, filtros, comandos, seleção e métricas.
+- CNN CPU construída/compilada, model.summary e inferência (2,2).
+- Runtime GPU, 30/60 épocas YOLO e 30 CNN completos; configurações, CSVs,
+  callbacks, checkpoint hashes e seleção por validação conferidos.
+- Oito nomes comuns nas três abordagens; 16 JPEGs de inferência processados.
+- Pacote original CRC válido e SHA-256 dos 41 arquivos conferidos.
+- Painel e tabela qualitativos realmente executados em Jupyter local a partir
+  dos resultados, sem inferências novas ou alterações nas métricas originais.
+- Notebook consolidado validado por nbformat/AST, sem outputs de erro, mantendo
+  outputs reais. Flags resetadas após execução, conforme metadata fase6_delivery.
+- Dados brutos/pesos/runs/ZIPs permanecem ignorados; diff exclusivo fase6.
+
+Veja results/audit/final_audit.json, results_analysis.md e final_checklist.md.
+Vídeo/publicação pelo aluno e detecção positiva de backpack continuam não comprovados.
+
+## Validação final da melhoria
+
+36 células de código da entrega executadas localmente com controles externos
+False; nenhuma instalação, Drive, GPU ou novo treinamento nessa validação.
+Contagens de IoU/TP/FP/FN de val/test recalculadas diretamente dos labels
+Make Sense imutáveis e das predições reais, correspondendo aos CSVs exportados.
+41 arquivos originais e 46 arquivos do pacote complementar conferidos por SHA-256.
+Painel real executado no Colab, com FN e FP destacados; nenhum resultado removido.
+Diff só fase6 e git diff --check aprovado; dados brutos/pesos/runs ignorados.
+Commit sugerido: `feat(fase6): melhora deteccao das duas classes com fine tuning validado`.

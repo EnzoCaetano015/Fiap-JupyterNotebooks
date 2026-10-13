@@ -1,22 +1,27 @@
-# Roteiro do vídeo — até 5 minutos
+# Roteiro do vídeo — até cinco minutos
 
-Status: roteiro preparado; gravação e publicação são tarefas do aluno.
-Preencha as referências abaixo somente depois dos resultados reais.
+Resultados reais disponíveis; gravação/publicação pelo aluno ainda pendentes.
 
-| Tempo | Tela e fala |
+| Tempo | Tela e fala sugerida |
 |---|---|
-| 0:00–0:30 | README: objetivo, três abordagens e classes bottle/backpack. |
-| 0:30–1:00 | Dataset: 80 fotos, 32/4/4 por classe; mostrar classes e imagens no Make Sense. Explicar que os labels de referência foram revisados por Codex no site. |
-| 1:00–2:00 | YOLO do zero: parâmetros iguais, tabela 30/60, melhor época, mAP/loss/duração de validação e critério do checkpoint selecionado; mostrar teste e detecções. Inserir os números reais. |
-| 2:00–2:45 | COCO: mesmas oito imagens, acertos/falhas observados e tempos; explicar ausência de mAP calculado e que confiança não é precisão. |
-| 2:45–3:35 | CNN própria: três blocos, treino do zero, curvas, melhor época, accuracy/F1 macro e matriz de confusão. Inserir os resultados reais. |
-| 3:35–4:30 | Benchmark: desempenho em cada tarefa, duração, média/mediana de inferência e facilidade de integração. Não comparar accuracy e mAP como iguais. |
-| 4:30–5:00 | Conclusões fundamentadas, teste pequeno, anotação de foco e limitações; mostrar GitHub e notebook. |
+| 0:00–0:25 | README/notebook: nome/RM e comparação de YOLO própria, COCO e CNN, classes bottle/backpack. |
+| 0:25–0:55 | Dataset e evidências Make Sense: 80 fotos, 40 por classe, 32/4/4, 91 caixas. Explicar que Codex revisou/exportou os labels no site. |
+| 0:55–1:45 | Tabela 30/60 e curvas: yolov5s do zero, 640, batch 16, seed 42, patience 0. Val mAP50:95 0,000096376 versus 0,040407; 165,22/294,21 s. Seleção de 60 pela validação, checkpoint época 59. |
+| 1:45–2:25 | Teste e painel YOLO: mAP50:95 0,005039; nenhuma caixa a 0,25. COCO detectou garrafas, nenhuma mochila. Mostrar que garrafa incidental na foto backpack é real. COCO mAP indisponível; confiança não é precisão. |
+| 2:25–3:15 | CNN: três blocos, 224×224, batch 8, 30 épocas, checkpoint val_loss época 29. Curvas, matriz [[4,0],[1,3]], accuracy 7/8=87,5%, F1 macro 0,8730. Mostrar mochila classificada como bottle. |
+| 3:15–4:10 | Benchmark: médias 34,22/20,97/16,99 ms; medianas 35,99/20,22/16,30 ms. Mesmas oito imagens/T4, warm-up excluído. Entradas/tarefas diferentes; accuracy não equivale a mAP. COCO mais direta, YOLO exige caixas/treino, CNN classifica sem localizar. |
+| 4:10–4:45 | Conclusões: ganho de validação não virou bom teste YOLO; CNN acertou 7/8 nesse teste pequeno, sem provar generalização. Limitações: 8 imagens, anotação de foco, ausência de mochilas detectadas. Mais dados/revisão independente são trabalhos futuros. |
+| 4:45–5:00 | Mostrar arquivos, notebook com outputs, evidências e repositório publicado; pesos/runs no Drive. Encerrar antes de 5 minutos. |
 
-Antes de gravar, ensaie e confira duração máxima de 5:00. Não use valores
-hipotéticos nem afirme que o aluno realizou pessoalmente uma revisão que
-foi feita por Codex. Grave as telas de resultados reais e preserve as
-atribuições das imagens. O Codex não gravará nem publicará o vídeo.
+Ensaie e confirme duração. Use resultados reais e mantenha atribuições das fotos.
+Não exponha credenciais/autorização do Drive. Não atribua ao aluno uma revisão
+feita pelo Codex. Publique como **não listado**, envie URL e duração para incluir
+no README e conferir acesso. URL: **pendente**.
 
-Depois, publique no YouTube como **não listado** e forneça a URL e a duração
-para atualizar o README. O link e a acessibilidade ainda estão pendentes.
+
+Atualização para a gravação: na parte YOLO, mostrar o baseline fraco e em seguida
+a melhoria COCO, deixando explícita a inicialização pré-treinada. Seleção val:
+60 épocas/época 58; teste mAP50:95
+0.7597. Mostrar imagens com caixas corretas das duas classes e
+contagens por classe. Substituir tempo de explicação existente; não exceder cinco
+minutos. Dizer que o teste adicional é retrospectivo e a base é pequena.
