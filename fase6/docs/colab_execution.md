@@ -1,94 +1,81 @@
-# Execução e preservação no Colab
+# Reprodução no Google Colab
 
-Estado em 13/10/2026: upload e experimentos concluídos; notebook consolidado
-com outputs reais. [Abrir notebook](https://colab.research.google.com/drive/1tOPqLqF--WRhIR8VweO8-4SQi4PKFW-j). Não é necessário treinar novamente
-para entregar estes resultados. Para revisar, leia outputs e docs/results_analysis.md.
+## 1. Prepare a pasta Fase6
 
-## Arquivos existentes no Drive
+No Google Drive, crie uma pasta **Fase6**. Coloque somente estes três arquivos
+diretamente na raiz dela:
 
-Pasta: `/content/drive/MyDrive/Faculdade/Fiap/Fase6`.
-- dataset_fase6_final.zip: 18.258.978 bytes; SHA-256
-  `51a01c51862133478be8927768c61364411cd137a893fe62171c281ecffb59fd`.
-- fase6_colab_preparacao.zip: pacote original do bootstrap; SHA-256
-  `23204e81b58c1c2bd900fbe366a2a42bb7b1c68ed2e6b6a8178604b15ea00349`.
-- data: 80 imagens/80 labels, 91 caixas, 64/8/8.
-- experiments/fase6_final_001: runs e checkpoints YOLO/CNN, environment.json,
-  resultados e ZIP original. O pacote revisado acrescenta auditoria e painel.
+```text
+Fase6/
+├── EnzoCaetanoPeracioRodrigues_rm570352_pbl_fase6.ipynb
+├── fase6_colab_preparacao.zip
+└── dataset_fase6_final.zip
+```
 
-Preserve esses arquivos. Pesos e runs permanecem no Drive; não os inclua no Git.
-O pacote de apoio original não foi substituído: seu hash é usado no bootstrap.
-As funções atualizadas estão no notebook consolidado.
+O notebook contém o código. O pacote de preparação contém as configurações
+e dependências de apoio. O pacote do dataset contém as imagens, os labels e
+a procedência das fotos. Não extraia os ZIPs manualmente e não precisa clonar
+o GitHub. As pastas **data** e **experiments** serão criadas pelo notebook.
 
-## Se precisar reproduzir em uma NOVA sessão
+Para apenas consultar os resultados, abra o notebook: os outputs já estão
+salvos e não exigem GPU nem novo treinamento.
 
-1. Abra uma cópia do notebook; os outputs existentes são históricos reais.
-   Escolha GPU T4 e versão do runtime **2026.07** (Python 3.12.13), cuja
-   compatibilidade foi comprovada. Se indisponível, valide outro runtime antes
-   de habilitar treinos; não reduza épocas ou parâmetros para contornar falhas.
-2. Habilite MOUNT_BOOTSTRAP_DRIVE na primeira célula para autenticar e copiar o
-   pacote original conferido. Na preparação, habilite USE_SUPPORT_ZIP. Alternativa:
-   clone somente após publicar a versão atual. Configure DRIVE_BASE/DRIVE_DATASET
-   ou FASE6_DATASET se usar outra pasta.
-3. Instale requirements com INSTALL_DEPENDENCIES. REMOVE_UNUSED_COLAB_JAX remove
-   jax/jaxlib opcionais somente do runtime temporário: a versão pré-instalada
-   conflitou com ml_dtypes do TensorFlow 2.17. Reinicie Python quando necessário;
-   reexecute definições com instalações já concluídas desativadas.
-4. Habilite INSTALL_TF_GPU_LIBRARIES uma vez. cuDNN 8.9.7.29 é instalada isolada
-   em fase6/.runtime/tf_cudnn, sem substituir cuDNN 9 do PyTorch. O preflight
-   importa PyTorch, carrega as bibliotecas locais e só então importa TensorFlow.
-   RUN_ISOLATED_GPU_DIAGNOSTIC é opcional; ele verifica operação Torch e convolução TF.
-5. Na configuração, MOUNT_DRIVE=True; mantenha EXTRACT_DATASET=False se data já
-   existe. Extração explícita somente para destino inexistente, com manifesto,
-   CRC, SHA-256 e proteção contra caminhos inseguros. Confira status ready,
-   classes, pares, legibilidade, distribuição e fingerprint.
-6. Use SESSION_NAME **novo** para novos experimentos. PREPARE_YOLO=True,
-   INSTALL_YOLO_DEPENDENCIES=True na instalação inicial e RUN_PREFLIGHT=True,
-   mantendo RUN_EXPERIMENTS=False. Confirme v7.0/commit oficial, arquivos essenciais,
-   GPU em ambos os frameworks e environment.json. Sem GPU, o fluxo bloqueia.
-7. Após conferir preflight, START_FINAL_EXPERIMENTS=True. Execute 30 épocas,
-   60 épocas, seleção em val, teste apenas do selecionado, COCO, CNN 30 épocas,
-   avaliação, painel e benchmark. Não altere hiperparâmetros entre YOLOs.
-8. EXPORT_RESULTS=True exporta apenas resultados pequenos; DOWNLOAD_RESULTS
-   é opcional. Salve também o notebook executado. Não reutilize o nome da sessão
-   de referência para novos treinos e não sobrescreva checkpoints.
+## 2. Abra o notebook e ajuste o caminho
 
-Todos esses controles estão False na entrega consolidada. Os outputs preservados
-foram produzidos com os controles necessários habilitados durante a execução.
+Abra o arquivo `.ipynb` com o Google Colab. A pasta pode estar em qualquer local
+do seu Drive. Nesta execução ela fica em **Meu Drive → Faculdade → Fiap → Fase6**,
+correspondente a `/content/drive/MyDrive/Faculdade/Fiap/Fase6`.
 
-## Recuperação da sessão existente
+Se usar **Meu Drive → Fase6**, o caminho será `/content/drive/MyDrive/Fase6`.
+Antes de executar, ajuste as três referências à pasta no notebook:
 
-Para visualizar resultados, prefira o notebook e o pacote consolidado. Para
-recuperar no Colab, refaça preparação/definições/preflight com SESSION_NAME
-fase6_final_001 e RESTORE_RESULTS=True antes das células de experimentos.
-O fluxo valida configuração, hardware, fingerprint, checkpoint e quantidade
-de épocas; não presume que um treino interrompido esteja completo.
-RECOVER_COMPLETED_30 é uma célula técnica da execução original, desativada:
-ela recuperou o tempo real após uma falha de coleta; não estima tempo.
-Os treinos foram concluídos uma vez, sem repetição após a correção.
+- Na primeira célula, o caminho `source` do arquivo `fase6_colab_preparacao.zip`.
+- Em **Configuração e caminhos**, a variável `DRIVE_BASE`.
+- Para executar também a melhoria complementar, `IMPROVEMENT_BASE` na seção 15.
 
-## Compatibilidade comprovada
+Use o mesmo caminho nas três referências. `DRIVE_DATASET` e `DATASET_ZIP`
+são derivados de `DRIVE_BASE`.
 
-Colab 2026.07, Python 3.12.13, Tesla T4, Torch 2.5.1+cu124/CUDA 12.4/cuDNN 9,
-TensorFlow 2.17.1 (build CUDA 12.3/cuDNN 8), cuDNN local 8.9.7.29.
-Ambos os testes reais GPU passaram antes dos treinos. Referências:
-[runtimes Colab](https://research.google.com/colaboratory/runtime-version-faq.html),
-[builds TensorFlow](https://www.tensorflow.org/install/source#gpu).
-Não foi alterada a venv Python 3.14 do repositório nem o ambiente global.
+## 3. Prepare uma nova execução
 
-## Sua parte restante
+1. Faça uma cópia do notebook para preservar os resultados existentes. Selecione
+   **GPU T4**. O ambiente comprovado foi runtime **2026.07**, Python 3.12.13;
+   se essa versão não estiver disponível, valide a compatibilidade antes de treinar.
+2. Na primeira célula, habilite `MOUNT_BOOTSTRAP_DRIVE=True`, execute e autorize
+   o acesso ao Drive. Na preparação, use `USE_SUPPORT_ZIP=True`.
+3. Execute as células na ordem apresentada. Habilite `INSTALL_DEPENDENCIES`
+   e `INSTALL_TF_GPU_LIBRARIES` na instalação inicial. A compatibilidade usada
+   instala cuDNN 8 isolada para TensorFlow, preservando as bibliotecas do PyTorch.
+   Se houver o conflito de JAX descrito na célula, use `REMOVE_UNUSED_COLAB_JAX`
+   somente no runtime temporário. Após um reinício, execute novamente as definições
+   com as instalações já concluídas desativadas.
+4. Em configuração, habilite `MOUNT_DRIVE`. Escolha um **novo `SESSION_NAME`**.
+   Na preparação do experimento, habilite `EXTRACT_DATASET` apenas se `data/`
+   ainda não existir, além de `PREPARE_YOLO`, `INSTALL_YOLO_DEPENDENCIES` na
+   primeira instalação e `RUN_PREFLIGHT`. Mantenha `RUN_EXPERIMENTS=False`
+   até o diagnóstico passar.
+5. Confira **Dataset validado**, as 80 imagens, a distribuição 64/8/8 e a
+   disponibilidade de GPU nos dois frameworks. O notebook verifica os hashes
+   dos ZIPs e bloqueia datasets inconsistentes. Não substitua o pacote de apoio
+   original: seu hash faz parte dessa conferência.
+6. Habilite `START_FINAL_EXPERIMENTS` e execute os experimentos em ordem:
+   YOLO do zero 30/60 épocas, seleção pela validação, teste da selecionada,
+   YOLO COCO, CNN por 30 épocas e comparação. Para a seção 15, use uma nova
+   `IMPROVEMENT_SESSION_NAME` e os controles próprios de preparação, instalação,
+   treino e teste. O teste complementar depende da seleção e validação.
+7. Salve o notebook executado. `EXPORT_RESULTS=True` gera o pacote dos resultados
+   pequenos. Pesos e runs permanecem em `experiments/`, fora do Git.
 
-Confira o notebook e as limitações, grave o roteiro de até cinco minutos,
-publique como não listado e forneça URL/duração. Depois revise o diff, faça
-commit/push e confira o link público. Não compartilhe pesos, credenciais ou
-autorização do Drive para gravar. Nenhum commit/push foi automatizado.
+Os controles estão **False** no notebook entregue para evitar reexecutar
+treinamentos ao abrir o arquivo. Não sobrescreva as sessões de referência
+`fase6_final_001` e `fase6_transfer_001`, nem extraia o dataset sobre uma pasta
+existente. Sem GPU ou diante de falhas no diagnóstico, resolva a inconsistência
+antes de executar os treinos, mantendo os parâmetros previstos.
 
+## Resultados e apresentação
 
-## Experimento complementar das duas classes
-
-Seção 15: fine tuning COCO executado, sessão fase6_transfer_001, resultados reais
-preservados. Não substitui o estudo original do zero. Helpers precedem o setup;
-reutilize definições sem rodar novamente treinos originais. Dados locais SSD
-vieram do ZIP original conferido. Instalação inicial/reinício foram necessários;
-flags agora False. Runs/weights existentes não são sobrescritos; arquivo execution.json
-e CSV/callback permitem recuperar etapas concluídas. Não reavaliar o teste para
-escolher ajustes; seu uso adicional é retrospectivo. Veja model_improvement.md.
+[Notebook executado](https://colab.research.google.com/drive/1tOPqLqF--WRhIR8VweO8-4SQi4PKFW-j)
+e [vídeo de apresentação](https://youtu.be/xQRzp8BzaPY), 4min34s, não listado.
+Veja [análise](results_analysis.md), [arquitetura](architecture.md) e
+[melhoria complementar](model_improvement.md). A melhoria preserva os baselines
+do zero e usa um teste retrospectivo; não ajuste parâmetros pelos acertos do teste.

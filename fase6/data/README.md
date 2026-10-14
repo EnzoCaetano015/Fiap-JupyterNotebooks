@@ -16,10 +16,10 @@ Cada split contém `images/` com JPEGs e `labels/` com o TXT do mesmo stem.
 São 80 labels, contendo 91 caixas delimitadoras. Os labels foram convertidos
 das anotações existentes do Open Images para `class_id x_center y_center width height`,
 com coordenadas normalizadas. Em 02/10/2026, as 80 imagens e seus labels foram
-importados no Make Sense, revisados visualmente por Codex via navegador e
+importados no Make Sense, revisados visualmente com assistência de IA e
 exportados pelo próprio site. Foram ajustadas 13 imagens, incluindo uma
 mochila ausente e a remoção de uma mala indevidamente marcada como mochila.
-Não são predições de um detector nem uma revisão humana independente pelo aluno.
+As caixas têm origem nas anotações do Open Images; a revisão assistida não equivale a uma revisão humana independente.
 Veja [procedimento](../docs/makesense.md) e [validação](../docs/makesense_validation.md).
 
 Os labels seguem a classe de foco original de cada imagem para manter o

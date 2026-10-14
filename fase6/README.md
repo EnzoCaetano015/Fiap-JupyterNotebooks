@@ -12,8 +12,8 @@ no GitHub depende do commit/push do aluno; nenhum foi feito automaticamente.
 
 80 fotos Open Images: bottle (0) e backpack (1), 40 por classe, distribuição
 32/4/4 por classe (64/8/8 no total), 80 labels e 91 caixas. Labels importados,
-revisados e corrigidos por Codex no Make Sense, exportados em YOLO. Preservamos
-essa autoria: veja [revisão](docs/makesense_validation.md),
+revisados e corrigidos no Make Sense, exportados em YOLO. Veja a
+[procedência e revisão](docs/makesense_validation.md),
 [contrato](data/README.md) e [atribuições](data/sources.csv).
 Fotos e labels brutos continuam ignorados pelo Git; pacote conferido no Drive.
 
@@ -41,7 +41,20 @@ reais em results; pesos/runs permanecem no Drive, fora do Git.
 
 ## Execução e entrega
 
-A pasta utilizada é `/content/drive/MyDrive/Faculdade/Fiap/Fase6`.
+Para reproduzir no Colab, crie uma pasta **Fase6** no Google Drive e coloque
+**estes três arquivos na raiz da pasta**:
+
+```text
+Fase6/
+├── EnzoCaetanoPeracioRodrigues_rm570352_pbl_fase6.ipynb
+├── fase6_colab_preparacao.zip
+└── dataset_fase6_final.zip
+```
+
+As pastas `data/` e `experiments/` são criadas durante a execução; não são
+arquivos de entrada obrigatórios. Não é necessário clonar o repositório ou
+criar as pastas manualmente. O caminho usado nesta execução é
+`/content/drive/MyDrive/Faculdade/Fiap/Fase6`; ajuste-o se guardar Fase6 em outro local.
 Upload, extração, diagnóstico, GPU dos dois frameworks e experimentos foram
 conferidos. Leia o [roteiro de execução/recuperação](docs/colab_execution.md)
 antes de habilitar ações; não sobrescreva a sessão existente.
@@ -55,7 +68,7 @@ Não instalar globalmente nem versionar ZIPs, pesos, ambientes ou runs.
 
 ## Pendências de aceite
 
-Vídeo de até cinco minutos: **gravação, publicação não listada e URL pendentes**.
+[Assistir ao vídeo de apresentação](https://youtu.be/xQRzp8BzaPY) — **4min34s**, publicação **não listada**. URL, título, duração e indicador de visibilidade conferidos na página do YouTube em 13/10/2026. A conferência de metadados não constitui uma revisão integral do conteúdo do vídeo.
 O [roteiro com os números reais](docs/video_script.md) está pronto.
 As predições originais não demonstraram mochilas; o experimento complementar
 com pesos COCO demonstra detecções corretas das duas classes, preservando o histórico.
@@ -63,7 +76,7 @@ Publicação da versão no GitHub/commit/push fica com o aluno.
 Não implementamos ESP32-CAM ou segmentação. Fine tuning foi usado no experimento complementar autorizado.
 
 Veja [arquitetura](docs/architecture.md), [validação](docs/validation.md),
-[progresso por task](docs/tasks_progress.md) e [auditoria](docs/final_checklist.md).
+[análise dos resultados](docs/results_analysis.md).
 
 
 ## Melhoria complementar concluída
@@ -75,7 +88,7 @@ Detecções corretas por IoU >=0,5/confiança >=0,25 demonstradas para **bottle 
 Os resultados fracos do treino do zero permanecem preservados; este ganho vem
 de um experimento complementar com pesos COCO, explicitamente autorizado.
 Veja [análise e contagens por classe](docs/model_improvement.md) e a seção 15
-do notebook. Não é novo teste cego. Vídeo/publicação seguem pendentes.
+do notebook. Não é novo teste cego. O vídeo está disponível no link acima; as alterações desta documentação ainda precisam ser publicadas no GitHub.
 
 Limitações complementares: uma mochila sem detecção a 0,25 e um copo marcado
 como garrafa. O objetivo mínimo de distinguir/localizar as duas classes foi

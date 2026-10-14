@@ -54,10 +54,10 @@ com validação/checkpoint, excluindo construção. CNN: 39,79 s de treino.
 COCO é mais direta de integrar; YOLO própria exige caixas e treinamento;
 CNN exige classe única e não fornece localização.
 
-As 80 imagens e a revisão de anotações por Codex no Make Sense limitam a base.
+A base de 80 imagens e a revisão assistida de anotações no Make Sense limitam as conclusões.
 Mais imagens diversas, revisão independente e novos experimentos previamente
 definidos são trabalhos futuros; não foram executados nesta rodada.
-Pesos/runs permanecem privados no Drive. Gravação e URL do vídeo continuam pendentes.
+Pesos/runs permanecem privados no Drive. [Assistir ao vídeo de apresentação](https://youtu.be/xQRzp8BzaPY) — **4min34s**, publicação **não listada**. URL, título, duração e indicador de visibilidade conferidos na página do YouTube em 13/10/2026. A conferência de metadados não constitui uma revisão integral do conteúdo do vídeo.
 
 ## Rastreabilidade e recuperação
 
@@ -134,7 +134,7 @@ Referência: [treinamento oficial](https://docs.ultralytics.com/yolov5/tutorials
 
 Controles externos foram resetados False após a execução, mantendo outputs reais.
 Runs e checkpoints ficam no Drive em experiments/fase6_transfer_001.
-Resultados pequenos e auditoria em results/yolo_improved. Vídeo/URL seguem pendentes.
+Resultados pequenos e auditoria em results/yolo_improved. Vídeo publicado: [YouTube](https://youtu.be/xQRzp8BzaPY), 4min34s, não listado.
 
 
 ### Falhas preservadas e diagnóstico

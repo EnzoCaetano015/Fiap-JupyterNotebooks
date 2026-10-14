@@ -44,7 +44,7 @@ Referência: [treinamento oficial](https://docs.ultralytics.com/yolov5/tutorials
 
 Controles externos foram resetados False após a execução, mantendo outputs reais.
 Runs e checkpoints ficam no Drive em experiments/fase6_transfer_001.
-Resultados pequenos e auditoria em results/yolo_improved. Vídeo/URL seguem pendentes.
+Resultados pequenos e auditoria em results/yolo_improved. [Assistir ao vídeo de apresentação](https://youtu.be/xQRzp8BzaPY) — **4min34s**, publicação **não listada**. URL, título, duração e indicador de visibilidade conferidos na página do YouTube em 13/10/2026. A conferência de metadados não constitui uma revisão integral do conteúdo do vídeo.
 
 
 A preparação/testes locais de IoU e controles constam em validation.md. Não houve alterações nos labels ou nova rotulação.

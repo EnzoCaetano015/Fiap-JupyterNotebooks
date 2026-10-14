@@ -51,7 +51,7 @@ consulte as URLs originais caso vá redistribuir as fotos publicamente.
 As fotos foram copiadas dos JPEGs do bucket oficial, sem recorte ou edição
 de pixels na coleta. As caixas foram convertidas de xyxy normalizado para
 centro/largura/altura YOLO com IDs locais 0/1; não são predições de modelo.
-Na coleta inicial não foi usado Make Sense. Em 02/10/2026, Codex importou,
+Na coleta inicial não foi usado Make Sense. Em 02/10/2026, a revisão assistida importou,
 revisou visualmente e corrigiu os labels no site, com exportações YOLO reais
 e capturas de tela. Veja [validação da revisão](makesense_validation.md).
 
@@ -110,7 +110,7 @@ A CNN real foi construída/compilada em CPU, com model.summary e inferência
 sintética de saída (2,2). O notebook entregue continua sem outputs acadêmicos.
 A GPU Colab e a execução conjunta dos frameworks só poderão ser confirmadas
 pelo usuário no preflight. Treinos e análises finais continuam pendentes.
-Confira tasks_progress.md e final_checklist.md para o estado por task.
+Confira README.md e results_analysis.md para o estado da entrega e os resultados.
 
 Verificação final: adaptadores oficiais compilados e exercitados com mocks; callback `on_model_save` conferido em melhoria/empate e seleção da linha correspondente do CSV; `ComputeLoss` e avaliação de oito imagens conferidos. Diff restrito a fase6, `git diff --check` sem erros e regras de ignore verificadas. Os adaptadores ainda precisam de execução real no Colab.
 
@@ -130,7 +130,7 @@ Verificação final: adaptadores oficiais compilados e exercitados com mocks; ca
   outputs reais. Flags resetadas após execução, conforme metadata fase6_delivery.
 - Dados brutos/pesos/runs/ZIPs permanecem ignorados; diff exclusivo fase6.
 
-Veja results/audit/final_audit.json, results_analysis.md e final_checklist.md.
+Veja results/audit/final_audit.json e results_analysis.md.
 Vídeo/publicação pelo aluno e detecção positiva de backpack continuam não comprovados.
 
 ## Validação final da melhoria

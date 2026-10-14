@@ -3,7 +3,7 @@
 Em 02/10/2026, foi utilizado https://www.makesense.ai/ para revisar todas as
 80 imagens já coletadas: um projeto com 64 imagens de treino e outro com as
 16 imagens de validação/teste. As caixas originais foram importadas como
-referência; Codex inspecionou capturas de cada imagem no editor e realizou
+referência; a revisão assistida por IA inspecionou capturas de cada imagem no editor e realizou
 as correções com os controles de desenho e exclusão do próprio site.
 
 ## Procedimento reproduzível
@@ -32,6 +32,6 @@ convencional; os bytes originais do Blob ZIP produzido pelo botão Export
 foram capturados e gravados sem modificar o arquivo gerado pelo site.
 Não houve geração de uma exportação substituta por conversão local.
 
-A operação e a revisão visual foram feitas por Codex via automação de navegador,
-sem atribuir ao aluno uma revisão humana que ele ainda não realizou.
+A operação e a revisão visual foram assistidas por IA via automação de navegador.
+Não foi realizada revisão humana independente.
 Veja [contagens, mudanças e limitações](makesense_validation.md).

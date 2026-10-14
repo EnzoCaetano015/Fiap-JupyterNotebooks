@@ -1,7 +1,7 @@
 # Validação real da revisão no Make Sense
 
 Data: 02/10/2026. Ferramenta: https://www.makesense.ai/.
-Revisor: Codex, com inspeção visual das capturas do editor e correções pelos
+Método: revisão assistida por IA, com inspeção visual das capturas do editor e correções pelos
 controles do site. Referência inicial: caixas do Open Images, sem detector.
 
 Foram revisadas 80 imagens e obtidas duas exportações YOLO reais (64 + 16).
@@ -63,7 +63,7 @@ SHA-256 da exportação de validação/teste: `c4db38f4ce99be9a109c0bcfbd881209e
 
 ## Limitações
 
-A revisão foi feita por Codex, não é uma declaração de revisão humana
+A revisão foi assistida por IA, não é uma declaração de revisão humana
 independente realizada pelo aluno. Os labels seguem a classe de foco de
 cada imagem, preservando o contrato da CNN; objetos incidentais da outra
 classe não foram anotados exaustivamente. Isso limita a avaliação de detecção.
