@@ -3,7 +3,8 @@
 Atividades acadêmicas da FIAP organizadas por fase, com notebooks
 Jupyter (`.ipynb`), dados e materiais de apoio às entregas.
 O repositório reúne estudos de análise de dados, Machine Learning
-e computação em nuvem aplicados a problemas do contexto agrícola.
+e computação em nuvem aplicados a problemas do contexto agrícola,
+além de experimentos de visão computacional.
 
 Os notebooks apresentam o desenvolvimento das atividades com código,
 explicações, gráficos e conclusões. Os arquivos complementares ficam
@@ -15,6 +16,7 @@ e o acompanhamento da evolução dos trabalhos.
 - [Fase 3 — Produtos agrícolas](fase3/)
 - [Fase 4 — Classificação de grãos com Machine Learning](fase4/)
 - [Fase 5 — Rendimento agrícola e Cloud Computing](fase5/)
+- [Fase 6 — Visão Computacional com YOLOv5 e CNN](fase6/)
 
 A **Fase 3** aborda a recomendação de culturas a partir de condições
 do solo e do clima. O notebook explora os dados e treina modelos
@@ -35,6 +37,14 @@ A segunda compara estimativas de custos de infraestrutura na AWS
 entre São Paulo e N. da Virgínia, considerando também as restrições
 de armazenamento de dados previstas no cenário da atividade.
 
+A **Fase 6** compara detecção de objetos com YOLOv5 e classificação
+de imagens com uma CNN própria para as classes garrafa e mochila.
+A atividade utiliza 80 imagens, com anotações revisadas no Make Sense,
+e inclui treinamentos da YOLO do zero por 30 e 60 épocas, um modelo
+pré-treinado COCO e um experimento complementar de fine-tuning.
+O notebook apresenta métricas, tempos de inferência, gráficos,
+exemplos de acertos e erros e as limitações dos resultados.
+
 Abra a pasta de cada fase para acessar seus notebooks e materiais.
 Para acompanhar o código, abra o arquivo `.ipynb` em um ambiente
 compatível com Jupyter e confira as orientações da própria atividade
@@ -43,3 +53,8 @@ antes de executar as células.
 A [documentação da Fase 5](fase5/README.md) detalha as dependências,
 as instruções de execução, os resultados, as evidências
 e os vídeos demonstrativos das duas entregas.
+
+A [documentação da Fase 6](fase6/README.md) apresenta o dataset,
+os resultados e o vídeo de apresentação, além das instruções para
+reproduzir os experimentos no Colab com o notebook e os dois pacotes
+ZIP na raiz de uma pasta `Fase6` no Google Drive.
